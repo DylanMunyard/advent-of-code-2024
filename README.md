@@ -2,7 +2,7 @@
 https://adventofcode.com/
 
 
-| Solution            | Notes |
-|---------------------|-------|
-| [Day 1](./aoc/1.ts) |  |
+| Solution                | Notes |
+|-------------------------|-------|
+| [Day 1](./src/aoc/1.ts) |  |
 
