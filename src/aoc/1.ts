@@ -1,5 +1,5 @@
 import { read } from '$app/server';
-import puzzle from "./input.txt";
+import puzzle from "./1.txt";
 
 const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 	const asset = read(puzzle);
