@@ -1,11 +1,12 @@
 import day1 from "../aoc/1";
+import day2 from "../aoc/2";
 import todo from "../aoc/x";
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = () => {
 	return {
 		1: day1(),
-		2: todo(),
+		2: day2(),
 		3: todo(),
 		4: todo(),
 		5: todo(),
