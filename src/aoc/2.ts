@@ -1,5 +1,6 @@
 import { read } from '$app/server';
 import puzzle from "./2.txt";
+import { arrEqual } from "$lib/arrays";
 
 const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 	const asset = read(puzzle);
@@ -10,14 +11,6 @@ const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 
 	const isadjacent = (a: number, b: number) => {
 		return Math.abs(a - b) >= 1  && Math.abs(a - b) <= 3;
-	}
-
-	const arrEqual = (a: number[], b: number[]) => {
-		if (a.length !== b.length) return false;
-		for (let i = 0; i < a.length; i++) {
-			if (a[i] !== b[i]) return false;
-		}
-		return true;
 	}
 
 	const adjacent = (line: number[]) : number[] => {
