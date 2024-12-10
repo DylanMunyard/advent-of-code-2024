@@ -72,7 +72,8 @@ const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 	const p1 = path.size;
 
 	let p2 = 0;
-	for (const pos of possible_obstacles) {
+	// todo this is slow:
+	/*for (const pos of possible_obstacles) {
 		obstacles.add(pos);
 
 		[pr, pc] = [sr, sc];
@@ -90,7 +91,7 @@ const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 		}
 
 		obstacles.delete(pos);
-	}
+	}*/
 
 	return {
 		1: p1,
