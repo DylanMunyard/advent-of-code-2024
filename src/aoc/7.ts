@@ -50,7 +50,7 @@ const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 
 	let [p1, p2] = [0, 0];
 
-	const equations = input.map(row => {
+	/*const equations = input.map(row => {
 		const line = { target: 0, inputs: [] as number[] };
 		line.target = Number(row.substring(0, row.indexOf(":")));
 		line.inputs = row.substring(row.indexOf(":") + 1).trim().split(/\s+/).map(Number);
@@ -77,7 +77,7 @@ const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 				break;
 			}
 		}
-	});
+	});*/
 
 	return {
 		1: p1,
