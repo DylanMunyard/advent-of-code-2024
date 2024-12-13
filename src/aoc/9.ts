@@ -12,36 +12,31 @@ const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 			return a;
 		}, [] as number[]);
 
-	const sum = (values: number[]) => values.reduce((a, b) => a + b, 0);
-
 	const files = parts(disk, true), spaces = parts(disk, false);
 
 	const defrag = (contiguous: number[]) => {
-		const frag = Array(sum(files) + sum(spaces)).fill(0);
-
-		let file = 0, space = 0, b = 0;
+		let file = 0, space = 0, b = 0, checksum = 0;
 		while (contiguous.length > 0) {
 			let blocks = contiguous.splice(0, files[file]);
-			frag.splice(b, blocks.length, ...blocks);
+			checksum = blocks.reduce((t, block, c) => t + block * (b + c), checksum);
 			b+= blocks.length;
 
 			if (contiguous.length === 0 || space >= spaces.length) break;
 
 			// fill in blanks, from end of block
 			blocks = contiguous.splice(spaces[space] * -1, spaces[space]).reverse();
-			frag.splice(b, blocks.length, ...blocks);
+			checksum = blocks.reduce((t, block, c) => t + block * (b + c), checksum);
 			b+= blocks.length;
 
 			file++;
 			space++;
 		}
 
-		return frag;
+		return checksum;
 	}
 
 	const contiguous : number[] = files.reduce((a, b, c) => [...a, ...Array(b).fill(c)], [] as number[]);
-
-	const p1 = defrag([...contiguous]).reduce((a, b, c) => a + (b * c), 0);
+	const p1 = defrag([...contiguous]);
 
 	const defragged = [...files];
 	const moved_files: { size: number, fill: number }[][] = []; // spaces where entire file blocks can be moved
@@ -57,21 +52,27 @@ const solution = async () : Promise<{ 1: number | null, 2: number | null }> => {
 		moved_files[space_block].push({ size: file_size, fill: f });
 	}
 
-	let p2_fragged: number[] = [];
+	let p2 = 0;
+	let b = 0;
 	for (let f = 0; f < defragged.length; f++) {
-		p2_fragged = p2_fragged.concat(...Array(defragged[f]).fill(f))
+		for (let block = 0; block < defragged[f]; block++) {
+			p2 += f * (b + block);
+		}
+		b += defragged[f];
+
 		if (f >= spaces.length) continue;
 
 		const moved = moved_files[f] ?? [];
 		for (let df = 0; df < moved.length; df++) {
 			const mf = moved_files[f][df];
-			p2_fragged = p2_fragged.concat(...Array(mf.size).fill(mf.fill));
+			for (let block = 0; block < mf.size; block++) {
+				p2 += mf.fill * (b + block);
+			}
+			b += mf.size;
 		}
 
-		p2_fragged = p2_fragged.concat(...Array(spaces[f]).fill(0));
+		b += spaces[f];
 	}
-
-	const p2 = p2_fragged.reduce((a, b, c) => a + (b * c), 0);
 
 	return {
 		1: p1,
