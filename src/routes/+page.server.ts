@@ -7,6 +7,7 @@ import day6 from "../aoc/6";
 import day7 from "../aoc/7";
 import day8 from "../aoc/8";
 import day9 from "../aoc/9";
+import day10 from "../aoc/10";
 import todo from "../aoc/x";
 import type { PageServerLoad } from './$types';
 
@@ -21,7 +22,7 @@ export const load: PageServerLoad = () => {
 		7: day7(),
 		8: day8(),
 		9: day9(),
-		10: todo(),
+		10: day10(),
 		11: todo(),
 		12: todo(),
 		13: todo(),
